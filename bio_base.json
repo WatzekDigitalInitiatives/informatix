@@ -1,7 +1,8 @@
 {
   "variables": {
     "aws_access_key": "",
-    "aws_secret_key": ""
+    "aws_secret_key": "",
+    "travis_build_number": "{{env `TRAVIS_BUILD_NUMBER`}}"
   },
   "builders": [{
     "type": "amazon-ebs",
@@ -11,7 +12,7 @@
     "instance_type": "c3.4xlarge",
     "source_ami": "ami-9abea4fb",
     "ssh_username": "ubuntu",
-    "ami_name": "bio-base-{{timestamp}}",
+    "ami_name": "bio-base-1.{{user `TRAVIS_BUILD_NUMBER`}}",
     "ami_description": "Biology Dept. informatix machine image by Watzek DI",
     "ami_groups": "all"
   }],
