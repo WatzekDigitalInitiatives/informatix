@@ -8,12 +8,15 @@
     "access_key": "{{user `aws_access_key`}}",
     "secret_key": "{{user `aws_secret_key`}}",
     "region": "us-west-2",
-    "source_ami": "ami-af31d9cf",
+    "instance_type": "c3.4xlarge",
+    "source_ami": "ami-9abea4fb",
     "ssh_username": "ubuntu",
-    "ami_name": "bio-base"
+    "ami_name": "bio-base-{{timestamp}}",
+    "ami_description": "Biology Dept. informatix machine image by Watzek DI",
+    "ami_groups": "all"
   }],
-  "provisioners": {
+  "provisioners": [{
      "type": "shell",
-     "script": "add_greta_data.sh"
-  }
+     "script": "../shell/install_bib.sh"
+  }]
 }
