@@ -17,6 +17,6 @@
   }],
   "provisioners": [{
      "type": "shell",
-     "script": "../shell/install_bib.sh"
+     "script": "shell/install_bib.sh"
   }]
 }
