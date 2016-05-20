@@ -20,7 +20,8 @@
      "type": "shell",
      "scripts": [
        "shell/install_bib.sh",
-       "shell/install_aws_cli.sh"
+       "shell/install_aws_cli.sh",
+       "shell/install_python_scripts.sh"
      ]
   }]
 }
