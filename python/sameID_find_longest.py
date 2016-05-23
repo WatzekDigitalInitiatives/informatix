@@ -7,7 +7,7 @@ Created on Thu May 19 13:42:18 2016
 
 import csv
 import sys
-from math import findLongestSeq
+from biomath import findLongestSeq
 
 if len(sys.argv) != 2:
         sys.exit("Please run the file as python sameID_find_longest.py blast_output.csv")        
@@ -20,7 +20,7 @@ if sys.argv[-1].endswith('.csv'):
              rows = [r for r in reader]
     
     output_data = findLongestSeq(rows)
-    #You can change the value of output_file_name to the name of the output file you want
+
     input_csv = input_csv[:-4]
     output_file_name = input_csv+"_trimmed"
     with open(output_file_name+".csv", "w") as file:
