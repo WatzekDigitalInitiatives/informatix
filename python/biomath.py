@@ -5,9 +5,9 @@ Created on Mon May 23 14:06:52 2016
 @author: rishijavia
 """
 
-def findLongestSeq(rows):    
+def findLongestSeq(rows):
     data = rows[0]
-    output_data = []   
+    output_data = []
     for i in range(1,len(rows)):
         col1 = rows[i][0]
         if (col1 == data[0]):
@@ -22,12 +22,14 @@ def findLongestSeq(rows):
 
 def reduceNames(seqid, data):
     output = {}
-    total = float(len(data))    
+    total = float(len(data))
     for i in range(0, len(data), 2):
         id = data[i][1:]
         if id in seqid:
-        progress = str(round(((i/total)*100),2)) + " % processed " + id
-            print progress + "\r"
+            progress = str(round(((i/total)*100),2)) + " % processed " + id
+            sys.stdout.write("\r")
+            sys.stdout.write(progress)
+            sys.stdout.flush()
             output[data[i]] = data[i+1]
     return output
 
