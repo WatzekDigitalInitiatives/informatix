@@ -5,7 +5,7 @@ Created on Thu May 19 15:50:11 2016
 @author: rishijavia
 """
 import sys
-from math import reduceNames
+from biomath import reduceNames
 
 if len(sys.argv) != 3:
     sys.exit("Please run the file as python db_reduced_names.py database.fasta names.txt")
@@ -17,7 +17,6 @@ if sys.argv[-2].endswith('.fasta') and sys.argv[-1].endswith('.txt'):
     
     print("Database Loaded")
     
-    #Name of the seq ids goes in quotes, do not include .txt, just the name of the file
     input_seq_name = sys.argv[-1]
     with open(input_seq_name, 'r') as f:
              seqid = f.read().splitlines() 
@@ -26,9 +25,9 @@ if sys.argv[-2].endswith('.fasta') and sys.argv[-1].endswith('.txt'):
     
     output = reduceNames(seqid, data)
     output_string = ""
-    for seqid, seq in output:
-        output_string = output_string + seqid+"\n" + seq+"\n" 
-    #Name of the output file goes in quotes, do not include .fasta, just the name of the file
+    for seqid, seq in output.items():
+        output_string = output_string + seqid+"\n" + seq+"\n"    
+    
     input_db_name = input_db_name[:-6]
     output_file_name = input_db_name+"_concatenated.fasta"
     with open(output_file_name, "w") as file:

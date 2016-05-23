@@ -22,12 +22,12 @@ def findLongestSeq(rows):
 
 def reduceNames(seqid, data):
     output = {}
-    total = float(len(data))
-    
+    total = float(len(data))    
     for i in range(0, len(data), 2):
         id = data[i][1:]
         if id in seqid:
-            print (str(round(((i/total)*100),2))+" % processed \n" + id, end="\r")
+        progress = str(round(((i/total)*100),2)) + " % processed " + id
+            print progress + "\r"
             output[data[i]] = data[i+1]
     return output
 

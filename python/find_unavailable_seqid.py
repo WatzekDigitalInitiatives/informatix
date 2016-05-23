@@ -6,7 +6,7 @@ Created on Fri May 20 09:21:00 2016
 """
 
 import sys
-from math import findMissingSeqs
+from biomath import findMissingSeqs
 
 if len(sys.argv) != 3:
     sys.exit("Please run the file as python find_unavailable_seqid.py database.fasta names.txt")
