@@ -10,15 +10,15 @@ import sys
 from biomath import findLongestSeq
 
 if len(sys.argv) != 2:
-        sys.exit("Please run the file as python sameID_find_longest.py blast_output.csv")        
-    
+        sys.exit("Please run the file as python sameID_find_longest.py blast_output.csv")
+
 if sys.argv[-1].endswith('.csv'):
     input_csv = sys.argv[-1]
     with open(input_csv, 'r') as f:
              reader = csv.reader(f, delimiter=',')
              next(reader)
              rows = [r for r in reader]
-    
+
     output_data = findLongestSeq(rows)
 
     input_csv = input_csv[:-4]
@@ -26,17 +26,17 @@ if sys.argv[-1].endswith('.csv'):
     with open(output_file_name+".csv", "w") as file:
         writer = csv.writer(file, lineterminator='\n')
         writer.writerows(output_data)
-    
+
     seq_id = []
     seq = []
     for data in output_data:
         seq_id.append(data[0])
         seq.append(data[1])
-    
+
     with open(output_file_name+"_names_only"+".txt", "w") as file:
         for id in seq_id:
             file.write(id+"\n")
-    
+
     with open(output_file_name+".fasta", "w") as file:
         for i in range(len(seq)):
             file.write(">"+seq_id[i]+"\n")

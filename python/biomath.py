@@ -18,9 +18,11 @@ def findLongestSeq(rows):
         else:
             output_data.append(data)
             data = rows[i]
+    output_data.append(data)
     return output_data
 
 def reduceNames(seqid, data):
+    import sys
     output = {}
     total = float(len(data))
     for i in range(0, len(data), 2):
