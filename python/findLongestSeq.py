@@ -1,47 +1,27 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu May 19 13:42:18 2016
-
-@author: rishijavia
+@author: thatbudakguy
 """
 
-import csv
 import sys
-from biomath import findLongestSeq
+import bioio
+import biomath
 
-if len(sys.argv) != 2:
-        sys.exit("Please run the file as python sameID_find_longest.py blast_output.csv")
+# strip file extension and read file
+input_csv_name = sys.argv[-1][:-4]
+input_csv_data = bioio.readCSV(sys.argv[-1])
 
-if sys.argv[-1].endswith('.csv'):
-    input_csv = sys.argv[-1]
-    with open(input_csv, 'r') as f:
-             reader = csv.reader(f, delimiter=',')
-             next(reader)
-             rows = [r for r in reader]
+# find longest sequences and get their corresponding ids
+output_csv_data = biomath.findLongestSeq(input_csv_data)
+output_seq_ids = bioio.splitCSV(output_csv_data)['output_seq_ids']
+output_seqs = bioio.splitCSV(output_csv_data)['output_seqs']
 
-    output_data = findLongestSeq(rows)
+# define names of the resulting files
+output_csv_name = input_csv_name+"_trimmed.csv"
+output_txt_name = input_csv_name+"_names_only.txt"
+output_fasta_name = input_csv_name+".fasta"
 
-    input_csv = input_csv[:-4]
-    output_file_name = input_csv+"_trimmed"
-    with open(output_file_name+".csv", "w") as file:
-        writer = csv.writer(file, lineterminator='\n')
-        writer.writerows(output_data)
-
-    seq_id = []
-    seq = []
-    for data in output_data:
-        seq_id.append(data[0])
-        seq.append(data[1])
-
-    with open(output_file_name+"_names_only"+".txt", "w") as file:
-        for id in seq_id:
-            file.write(id+"\n")
-
-    with open(output_file_name+".fasta", "w") as file:
-        for i in range(len(seq)):
-            file.write(">"+seq_id[i]+"\n")
-            file.write(seq[i]+"\n")
-    print("Output file names: \n"+output_file_name+".csv \n"+output_file_name+"_names_only.txt \n"+output_file_name+".fasta \n")
-
-else:
-    sys.exit("Please check the file extensions. The input file should be a .csv file")
+# write the resulting data to files
+bioio.writeCSV(output_csv_name,output_csv_data)
+bioio.writeTXT(output_txt_name,output_seq_ids)
+bioio.writeFASTA(output_fasta_name,output_seq_ids,output_seqs)

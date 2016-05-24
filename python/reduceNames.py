@@ -1,39 +1,28 @@
 # -*- coding: utf-8 -*-
 """
-Created on Thu May 19 15:50:11 2016
-
-@author: rishijavia
+@author: thatbudakguy
 """
+
 import sys
-from biomath import reduceNames
+import bioio
+import biomath
 
-if len(sys.argv) != 3:
-    sys.exit("Please run the file as python db_reduced_names.py database.fasta names.txt")
+# strip file extensions and read files
+input_txt_name = sys.argv[-1][:-4]
+input_txt_data = bioio.readTXT(sys.argv[-1])
+input_fasta_name = sys.argv[-2][:-6]
+input_fasta_data = bioio.readFASTA(sys.argv[-2])
+input_fasta_splitdata = bioio.splitFASTA(input_fasta_data)
+input_fasta_seq_ids = input_fasta_splitdata['output_seq_ids']
+input_fasta_seqs = input_fasta_splitdata['output_seqs']
 
-if sys.argv[-2].endswith('.fasta') and sys.argv[-1].endswith('.txt'):
-    input_db_name = sys.argv[-2]
-    with open(input_db_name, 'r') as f:
-             data = f.read().splitlines()
-    
-    print("Database Loaded")
-    
-    input_seq_name = sys.argv[-1]
-    with open(input_seq_name, 'r') as f:
-             seqid = f.read().splitlines() 
-    
-    print("SeqId Loaded")
-    
-    output = reduceNames(seqid, data)
-    output_string = ""
-    for seqid, seq in output.items():
-        output_string = output_string + seqid+"\n" + seq+"\n"    
-    
-    input_db_name = input_db_name[:-6]
-    output_file_name = input_db_name+"_concatenated.fasta"
-    with open(output_file_name, "w") as file:
-        file.write(output_string)
-    
-    print("Process complete, output in file "+output_file_name)
+# compare input files to find missing lines
+output_fasta_data = biomath.reduceNames(input_txt_data,input_fasta_seq_ids)
+output_seq_ids = output_fasta_data['output_seq_ids']
+output_seqs = output_fasta_data['output_seqs']
 
-else:
-    sys.exit("Please check the file extensions. First file should be .fasta and second file should be .txt ")
+# define names of the resulting files
+output_fasta_name = input_fasta_name+"_concatenated.fasta"
+
+# write the missing lines to a file
+bioio.writeFASTA(output_fasta_name,output_seq_ids,output_seqs)

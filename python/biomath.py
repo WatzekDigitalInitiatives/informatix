@@ -2,7 +2,7 @@
 """
 Created on Mon May 23 14:06:52 2016
 
-@author: rishijavia
+@author: rishijavia and thatbudakguy
 """
 
 def findLongestSeq(rows):
@@ -21,19 +21,22 @@ def findLongestSeq(rows):
     output_data.append(data)
     return output_data
 
-def reduceNames(seqid, data):
+def reduceNames(search_seq_ids, db_seq_ids, db_seqs):
     import sys
-    output = {}
-    total = float(len(data))
-    for i in range(0, len(data), 2):
-        id = data[i][1:]
-        if id in seqid:
-            progress = str(round(((i/total)*100),2)) + " % processed " + id
-            sys.stdout.write("\r")
-            sys.stdout.write(progress)
-            sys.stdout.flush()
-            output[data[i]] = data[i+1]
-    return output
+    output_seq_ids = []
+    output_seqs = []
+    total = len(db_seq_ids)
+    for i in range(0,total):
+        progress = str(round(((i/total)*100),2)) + " % processed "
+        sys.stdout.write("\r")
+        sys.stdout.write(progress)
+        id = search_seq_ids[i]
+        if id in db_seq_ids:
+            sys.stdout.write(id)
+            output_seq_ids[i] = id
+            output_seqs[i] = db_seqs[i]
+        sys.stdout.flush()
+    return {'output_seq_ids':output_seq_ids,'output_seqs':output_seqs}
 
 def findMissingSeqs(names_list, data_list):
     output = []

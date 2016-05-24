@@ -1,33 +1,24 @@
 # -*- coding: utf-8 -*-
 """
-Created on Fri May 20 09:21:00 2016
-
-@author: rishijavia
+@author: thatbudakguy
 """
 
 import sys
-from biomath import findMissingSeqs
+import bioio
+import biomath
 
-if len(sys.argv) != 3:
-    sys.exit("Please run the file as python find_unavailable_seqid.py database.fasta names.txt")
+# strip file extensions and read files
+input_txt_name = sys.argv[-1][:-4]
+input_txt_data = bioio.readTXT(sys.argv[-1])
+input_fasta_name = sys.argv[-2][:-6]
+input_fasta_data = bioio.readFASTA(sys.argv[-2])
+input_fasta_seq_ids = bioio.splitFASTA(input_fasta_data)['output_seq_ids']
 
-if sys.argv[-2].endswith('.fasta') and sys.argv[-1].endswith('.txt'):
-    input_db = sys.argv[-2]
-    with open(input_db, 'r') as f:
-        data = f.read().splitlines()
+# compare input files to find missing lines
+output_seq_ids = biomath.findMissingSeqs(input_txt_data,input_fasta_seq_ids)
 
-    input_names = sys.argv[-1]
-    with open(input_names, 'r') as f:
-        names = f.read().splitlines()
+# define names of the resulting files
+output_txt_name = input_txt_name+"_missing.txt"
 
-    names_list = names
-    data_list = []
-
-    for i in range(0, len(data), 2):
-        data_list.append(data[i][1:])
-
-    output = findMissingSeqs(names_list, data_list)
-
-    print(output)
-else:
-    sys.exit("Please check the file extensions. First file should be .fasta and second file should be .txt ")
+# write the missing lines to a file
+bioio.writeTXT(output_txt_name,output_seq_ids)
