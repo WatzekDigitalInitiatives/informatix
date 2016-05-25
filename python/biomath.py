@@ -30,10 +30,9 @@ def reduceNames(search_seq_ids, db_seq_ids, db_seqs):
         progress = str(round(((i/total)*100),2)) + " % processed "
         sys.stdout.write("\r")
         sys.stdout.write(progress)
-        id = db_seq_ids[i]
-        if id in search_seq_ids:
-            sys.stdout.write(id)
-            output_seq_ids.append(id)
+        if db_seq_ids[i] in search_seq_ids:
+            sys.stdout.write(db_seq_ids[i])
+            output_seq_ids.append(db_seq_ids[i])
             output_seqs.append(db_seqs[i])
         sys.stdout.flush()
     return {'output_seq_ids':output_seq_ids,'output_seqs':output_seqs}

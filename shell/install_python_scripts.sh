@@ -3,5 +3,5 @@
 cd ~ && mkdir scripts && cd scripts
 git init && git remote add -f origin https://github.com/WatzekDigitalInitiatives/informatix # links but doesn't clone
 git config core.sparsecheckout true # allows us to check out a subfolder of the repo
-echo "python/*.py" >> .git/info/sparse-checkout # we whitelist only the scripts in the python/ subfolder to clone
+echo "python/*" >> .git/info/sparse-checkout # we whitelist only the scripts in the python/ subfolder to clone
 git pull --depth=1 origin master # shallow clone doesn't pull down repo history, as we don't need it

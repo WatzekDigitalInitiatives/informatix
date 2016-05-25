@@ -16,16 +16,18 @@ def readCSV(input_file):
         input_data = [r for r in reader]
     return input_data
 
-# takes input_file and returns lines as input_data
+# takes input_file and returns lines as input_data, strips '>'
 def readTXT(input_file):
     with open(input_file, 'r') as f:
         input_data = f.read().splitlines()
+    input_data = trimGreaterThans(input_data)
     return input_data
 
-# takes input_file, and returns lines as input_data
+# takes input_file, and returns lines as input_data, strips '>'
 def readFASTA(input_file):
     with open(input_file, 'r') as f:
         input_data = f.read().splitlines()
+    input_data = trimGreaterThans(input_data)
     return input_data
 
 #takes multiple input FASTA files and returns one single list with all seqids combined
@@ -50,12 +52,12 @@ def splitCSV(input_data):
         output_seqs.append(data[1])
     return {'output_seq_ids':output_seq_ids,'output_seqs':output_seqs}
 
-# takes lines and returns dict with seqs and seq ids, strips out >
+# takes lines and returns dict with seqs and seq ids
 def splitFASTA(input_data):
     output_seq_ids = []
     output_seqs = []
     for i in range(0, len(input_data), 2):
-        output_seq_ids.append(input_data[i][1:])
+        output_seq_ids.append(input_data[i])
     for i in range(1, len(input_data), 2):
         output_seqs.append(input_data[i])
     return {'output_seq_ids':output_seq_ids,'output_seqs':output_seqs}
@@ -82,6 +84,12 @@ def addVenomCode(rows,code):
         output_data.append(row + "_" + code)
     return output_data
 
+# takes lines and trims 3-letter venom code
+def trimVenomCodes(input_data):
+    output_data = []
+    for data in input_data:
+        output_data.append(input_data[:-4])
+    return output_data
 
 # adds a > character to the beginning of every line if one is not present
 def addGreaterThans(rows):
@@ -89,6 +97,18 @@ def addGreaterThans(rows):
     for row in rows:
         if row[0] != ">":
             output_data.append(">" + row)
+        else:
+            output_data.append(row)
+    return output_data
+
+# trims a > character to the beginning of every line if one is present
+def trimGreaterThans(rows):
+    output_data = []
+    for row in rows:
+        if row[0] == ">":
+            output_data.append(row[1:])
+        else:
+            output_data.append(row)
     return output_data
 
 # replaces s??? codes with sample info codes
@@ -131,6 +151,7 @@ def replaceSCodes(rows):
     return output_data
 
 
+
 """
 WRITE
 """
@@ -145,6 +166,7 @@ def writeCSV(output_csv_name,output_csv):
 
 # writes txt file with name output_txt_name and data output_txt
 def writeTXT(output_txt_name,output_txt):
+    output_txt = addGreaterThans(output_txt)
     with open(output_txt_name, "w") as file:
         for line in output_txt:
             file.write(line+"\n")
@@ -152,6 +174,7 @@ def writeTXT(output_txt_name,output_txt):
 
 # writes fasta file with name output_fasta_name and paired output_seq_ids / output_seqs
 def writeFASTA(output_fasta_name,output_seq_ids,output_seqs):
+    output_seq_ids = addGreaterThans(output_seq_ids)
     with open(output_fasta_name, "w") as file:
         for i in range(len(output_seqs)):
             file.write(">"+output_seq_ids[i]+"\n")
