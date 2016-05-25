@@ -6,6 +6,7 @@ Created on Mon May 23 14:06:52 2016
 """
 
 import biomath
+import bioio
 import unittest
 from testdata import *
 
@@ -16,11 +17,20 @@ class TestBioMath(unittest.TestCase):
         self.assertEqual(biomath.findLongestSeq(example_rows),expected_longest_rows)
 
     def test_reduceNames(self):
-        self.assertEqual(biomath.reduceNames(example_seqid,example_data),expected_reduced_names)
+        reduced_data = biomath.reduceNames(example_search_seqids,example_db_seqids,example_db_seqs)
+        self.assertEqual(reduced_data['output_seq_ids'],expected_reduced_data['output_seq_ids'])
+        self.assertEqual(reduced_data['output_seqs'],expected_reduced_data['output_seqs'])
 
     def test_findMissingSeqs(self):
         self.assertEqual(biomath.findMissingSeqs(example_names_list,example_data_list),expected_missing_seqs)
 
+class TestBioIO(unittest.TestCase):
+
+    def test_splitLinearSeqids(self):
+        self.assertEqual(bioio.splitLinearSeqids(example_linear_seqids),expected_split_linear_seqids)
+
 if __name__ == '__main__':
-    suite = unittest.TestLoader().loadTestsFromTestCase(TestBioMath)
-    unittest.TextTestRunner(verbosity=2).run(suite)
+    mathsuite = unittest.TestLoader().loadTestsFromTestCase(TestBioMath)
+    iosuite = unittest.TestLoader().loadTestsFromTestCase(TestBioIO)
+    unittest.TextTestRunner(verbosity=2).run(mathsuite)
+    unittest.TextTestRunner(verbosity=2).run(iosuite)

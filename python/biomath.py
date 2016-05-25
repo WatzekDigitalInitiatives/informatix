@@ -25,16 +25,16 @@ def reduceNames(search_seq_ids, db_seq_ids, db_seqs):
     import sys
     output_seq_ids = []
     output_seqs = []
-    total = len(db_seq_ids)
-    for i in range(0,total):
+    total = float(len(db_seq_ids))
+    for i in range(0,len(db_seq_ids)):
         progress = str(round(((i/total)*100),2)) + " % processed "
         sys.stdout.write("\r")
         sys.stdout.write(progress)
-        id = search_seq_ids[i]
-        if id in db_seq_ids:
+        id = db_seq_ids[i]
+        if id in search_seq_ids:
             sys.stdout.write(id)
-            output_seq_ids[i] = id
-            output_seqs[i] = db_seqs[i]
+            output_seq_ids.append(id)
+            output_seqs.append(db_seqs[i])
         sys.stdout.flush()
     return {'output_seq_ids':output_seq_ids,'output_seqs':output_seqs}
 

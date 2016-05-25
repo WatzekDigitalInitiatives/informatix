@@ -36,46 +36,93 @@ expected_longest_rows = [
 ]
 
 #
+# splitLinearSeqids()
+#
+
+global example_linear_seqids
+global expected_split_linear_seqids
+
+example_linear_seqids = [
+'>sample1',
+'>sample2',
+'>sample3>sample3429',
+'>sample4>sample3s>__45-dfs_d34|df3',
+'>sample5>sdf>32off>dfsu0sd$',
+'>sample6>r32n@'
+]
+
+expected_split_linear_seqids = [
+'>sample1',
+'>sample2',
+'>sample3',
+'>sample3429',
+'>sample4',
+'>sample3s',
+'>__45-dfs_d34|df3',
+'>sample5',
+'>sdf',
+'>32off',
+'>dfsu0sd$',
+'>sample6',
+'>r32n@'
+]
+
+#
 # reduceNames()
 #
 
-global example_seqid
-global example_data
-global expected_reduced_names
+global example_search_seqids
+global example_db_seqids
+global example_db_seqs
+global expected_reduced_data
 
-example_seqid = [
+example_search_seqids = [
+'sample1',
+'sample2',
+'sample7',
+'sample4',
+'sample5',
+'sample8'
+]
+
+example_db_seqids = [
 'sample1',
 'sample2',
 'sample3',
 'sample4',
 'sample5',
-'sample6'
+'sample6',
+'sample7',
+'sample8'
 ]
 
-example_data = [
-'>sample1',
+example_db_seqs = [
 'FJKDHGSKJGHLSKULSDUHRGLSIHUG',
-'>sample2',
 'CIVAWUHEFLIAUSBECLIASUEFHLAKEUFHLASIEUFGAKLSEFULAEWK',
-'>sample3',
 'KSLADJFHALKSUDHFALKSDUHFALKS',
-'>sample4',
 'SDJKFHALSKDUFHASLKFHASLKJFHASDLKJH',
-'>sample5',
 'SKDJFHALKSDJFHFJKGHSLDKFGJHDSKLFJGHSLDKF',
-'>sample6',
 'DSSDHJFBAGKJDHFKSDGHK',
-'>sample7',
-'SDKJFHALKSDFBASLKJFBASLDKDSAKLJDS'
+'SDKJFHALKSDFBASLKJFBASLDKDSAKLJDS',
+'DFLKJSDFDJKGHSLKDHGSKDJHGKSDJHFGSLKDJHFGG'
 ]
 
-expected_reduced_names = {
-'>sample1':'FJKDHGSKJGHLSKULSDUHRGLSIHUG',
-'>sample2':'CIVAWUHEFLIAUSBECLIASUEFHLAKEUFHLASIEUFGAKLSEFULAEWK',
-'>sample3':'KSLADJFHALKSUDHFALKSDUHFALKS',
-'>sample4':'SDJKFHALSKDUFHASLKFHASLKJFHASDLKJH',
-'>sample5':'SKDJFHALKSDJFHFJKGHSLDKFGJHDSKLFJGHSLDKF',
-'>sample6':'DSSDHJFBAGKJDHFKSDGHK'
+expected_reduced_data = {
+'output_seq_ids':[
+'sample1',
+'sample2',
+'sample4',
+'sample5',
+'sample7',
+'sample8'],
+'output_seqs':[
+'FJKDHGSKJGHLSKULSDUHRGLSIHUG',
+'CIVAWUHEFLIAUSBECLIASUEFHLAKEUFHLASIEUFGAKLSEFULAEWK',
+'SDJKFHALSKDUFHASLKFHASLKJFHASDLKJH',
+'SKDJFHALKSDJFHFJKGHSLDKFGJHDSKLFJGHSLDKF',
+'SDKJFHALKSDFBASLKJFBASLDKDSAKLJDS',
+'DFLKJSDFDJKGHSLKDHGSKDJHGKSDJHFGSLKDJHFGG'
+]
 }
 
 #
