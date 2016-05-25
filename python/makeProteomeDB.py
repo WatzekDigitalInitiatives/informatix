@@ -16,11 +16,8 @@ for file in files:
 	input_txt_name = file[:-4]
 	input_txt_data = bioio.readTXT(file)
 
-	# add greaterthans
-	output_data = bioio.addGreaterThans(input_txt_data)
-
 	# split on greaterthans
-	output_data = bioio.splitLinearSeqids(output_data)
+	output_data = bioio.splitLinearSeqids(input_txt_data)
 
 	# add venom codes based on filename
 	output_data = bioio.addVenomCode(output_data,input_txt_name)

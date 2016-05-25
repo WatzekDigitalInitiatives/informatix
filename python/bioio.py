@@ -87,7 +87,7 @@ def addVenomCode(rows,code):
 def trimVenomCodes(input_data):
     output_data = []
     for data in input_data:
-        output_data.append(input_data[:-4])
+        output_data.append(data[:-4])
     return output_data
 
 # adds a > character to the beginning of every line if one is not present
