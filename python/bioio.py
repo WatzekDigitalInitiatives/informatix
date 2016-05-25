@@ -114,7 +114,7 @@ def trimGreaterThans(rows):
 def replaceSCodes(rows):
     scodes = {
     's001':'Dry_VG_s001',
-    's002':'LAz1_VG_s002',
+    's002':'Laz1_VG_s002',
     's003':'LAz2_VG_s003',
     's004':'LAz3_VG_s004',
     's005':'Sic1_VG_s005',
