@@ -43,28 +43,28 @@ global example_linear_seqids
 global expected_split_linear_seqids
 
 example_linear_seqids = [
-'>sample1',
-'>sample2',
-'>sample3>sample3429',
-'>sample4>sample3s>__45-dfs_d34|df3',
-'>sample5>sdf>32off>dfsu0sd$',
-'>sample6>r32n@'
+'sample1',
+'sample2',
+'sample3>sample3429',
+'sample4>sample3s>__45-dfs_d34|df3',
+'sample5>sdf>32off>dfsu0sd$',
+'sample6>r32n@'
 ]
 
 expected_split_linear_seqids = [
-'>sample1',
-'>sample2',
-'>sample3',
-'>sample3429',
-'>sample4',
-'>sample3s',
-'>__45-dfs_d34|df3',
-'>sample5',
-'>sdf',
-'>32off',
-'>dfsu0sd$',
-'>sample6',
-'>r32n@'
+'sample1',
+'sample2',
+'sample3',
+'sample3429',
+'sample4',
+'sample3s',
+'__45-dfs_d34|df3',
+'sample5',
+'sdf',
+'32off',
+'dfsu0sd$',
+'sample6',
+'r32n@'
 ]
 
 #

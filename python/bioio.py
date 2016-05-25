@@ -162,7 +162,7 @@ def writeCSV(output_csv_name,output_csv):
         writer.writerows(output_csv)
     print "\nWrote " + output_csv_name + "\n"
 
-# takes a list of lines output_txt and writes a TXT file with name output_txt_name
+# takes a list of lines output_txt (adds '>') and writes a TXT file with name output_txt_name
 def writeTXT(output_txt_name,output_txt):
     output_txt = addGreaterThans(output_txt)
     with open(output_txt_name, "w") as file:
@@ -170,7 +170,7 @@ def writeTXT(output_txt_name,output_txt):
             file.write(line+"\n")
     print "\nWrote " + output_txt_name + "\n"
 
-# takes a list of sequence ids output_seq_ids and a list of sequences output_seqs and writes a FASTA file with name output_fasta_name
+# takes a list of sequence ids output_seq_ids (adds '>') and a list of sequences output_seqs and writes a FASTA file with name output_fasta_name
 def writeFASTA(output_fasta_name,output_seq_ids,output_seqs):
     output_seq_ids = addGreaterThans(output_seq_ids)
     with open(output_fasta_name, "w") as file:
