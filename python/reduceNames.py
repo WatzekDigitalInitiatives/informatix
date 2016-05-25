@@ -16,7 +16,7 @@ input_fasta_splitdata = bioio.splitFASTA(input_fasta_data)
 input_fasta_seq_ids = input_fasta_splitdata['output_seq_ids']
 input_fasta_seqs = input_fasta_splitdata['output_seqs']
 
-# compare input files to find missing lines
+# find seqs from database using seqids list
 output_fasta_data = biomath.reduceNames(input_txt_data,input_fasta_seq_ids,input_fasta_seqs)
 output_seq_ids = output_fasta_data['output_seq_ids']
 output_seqs = output_fasta_data['output_seqs']
