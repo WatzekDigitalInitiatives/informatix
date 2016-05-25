@@ -28,6 +28,15 @@ def readFASTA(input_file):
         input_data = f.read().splitlines()
     return input_data
 
+#takes multiple input FASTA files and returns one single list with all seqids combined
+def combineFASTA(files):
+    output_data = []
+    for file in files:
+        input_txt_data = readTXT(file)
+        for line in input_txt_data:
+            output_data.append(line)
+    return output_data
+
 """
  MANIPULATE
 """
@@ -120,6 +129,7 @@ def replaceSCodes(rows):
         if switch == 0:
             output_data.append(row)
     return output_data
+
 
 """
 WRITE

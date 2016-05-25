@@ -8,11 +8,12 @@ import bioio
 import biomath
 
 files = sys.argv[1:]
+output_file_names = []
 
 for file in files:
 	# strip file extension and read file
 	input_txt_name = file[:-4]
-	input_txt_data = bioio.readTXT(sys.argv[-1])
+	input_txt_data = bioio.readTXT(file)
 
 	# add greaterthans
 	output_data = bioio.addGreaterThans(input_txt_data)
@@ -28,6 +29,10 @@ for file in files:
 
 	# define names of the resulting file
 	output_txt_name = input_txt_name+"_proteome_ready.txt"
+	output_file_names.append(output_txt_name)
 
 	# write the resulting file
 	bioio.writeTXT(output_txt_name,output_data)
+
+output_data = bioio.combineFASTA(output_file_names)
+bioio.writeTXT("combined_proteome_db.txt",output_data)
