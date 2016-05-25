@@ -7,7 +7,7 @@
  READ
 """
 
-# takes input_file and returns rows as input_data
+# takes CSV file and returns list of rows
 def readCSV(input_file):
     import csv
     with open(input_file, 'r') as f:
@@ -16,21 +16,21 @@ def readCSV(input_file):
         input_data = [r for r in reader]
     return input_data
 
-# takes input_file and returns lines as input_data, strips '>'
+# takes TXT file and returns list of lines, strips '>'
 def readTXT(input_file):
     with open(input_file, 'r') as f:
         input_data = f.read().splitlines()
     input_data = trimGreaterThans(input_data)
     return input_data
 
-# takes input_file, and returns lines as input_data, strips '>'
+# takes FASTA file and returns list of lines, strips '>'
 def readFASTA(input_file):
     with open(input_file, 'r') as f:
         input_data = f.read().splitlines()
     input_data = trimGreaterThans(input_data)
     return input_data
 
-#takes multiple input FASTA files and returns one single list with all seqids combined
+# takes multiple FASTA files and returns one single list with all seqids combined
 def combineFASTA(files):
     output_data = []
     for file in files:
@@ -43,7 +43,7 @@ def combineFASTA(files):
  MANIPULATE
 """
 
-# takes lines and returns dict with seqs and seq ids
+# takes list of rows and returns dictionary with list of sequence ids and list of sequences
 def splitCSV(input_data):
     output_seq_ids = []
     output_seqs = []
@@ -52,7 +52,7 @@ def splitCSV(input_data):
         output_seqs.append(data[1])
     return {'output_seq_ids':output_seq_ids,'output_seqs':output_seqs}
 
-# takes lines and returns dict with seqs and seq ids
+# takes list of lines and returns dictionary with list of sequence ids and list of sequences
 def splitFASTA(input_data):
     output_seq_ids = []
     output_seqs = []
@@ -62,29 +62,28 @@ def splitFASTA(input_data):
         output_seqs.append(input_data[i])
     return {'output_seq_ids':output_seq_ids,'output_seqs':output_seqs}
 
-# takes lines and makes sure all seqids are on a new line
+# takes list of lines and makes sure all sequence ids are on a new line, using remaining '>'
 def splitLinearSeqids(rows):
     output_data = []
     for row in rows:
-        row = row[1:]
         row = row + ">"
-        string = ">"
+        string = ""
         for c in row:
             if c == ">":
                 output_data.append(string)
-                string = ">"
+                string = ""
             else:
                 string = string + c
     return output_data
 
-# takes lines and appends 3-letter venom code based on filename
+# takes list of lines and appends 3-letter venom code based on filename
 def addVenomCode(rows,code):
     output_data = []
     for row in rows:
         output_data.append(row + "_" + code)
     return output_data
 
-# takes lines and trims 3-letter venom code
+# takes list of lines and trims 3-letter venom code
 def trimVenomCodes(input_data):
     output_data = []
     for data in input_data:
@@ -101,7 +100,7 @@ def addGreaterThans(rows):
             output_data.append(row)
     return output_data
 
-# trims a > character to the beginning of every line if one is present
+# trims a > character at the beginning of every line if one is present
 def trimGreaterThans(rows):
     output_data = []
     for row in rows:
@@ -151,12 +150,11 @@ def replaceSCodes(rows):
     return output_data
 
 
-
 """
 WRITE
 """
 
-# writes csv file with name output_csv_name and data output_csv
+# takes a list of rows output_csv and writes a CSV file with name output_csv_name
 def writeCSV(output_csv_name,output_csv):
     import csv
     with open(output_csv_name, "w") as file:
@@ -164,7 +162,7 @@ def writeCSV(output_csv_name,output_csv):
         writer.writerows(output_csv)
     print "\nWrote " + output_csv_name + "\n"
 
-# writes txt file with name output_txt_name and data output_txt
+# takes a list of lines output_txt and writes a TXT file with name output_txt_name
 def writeTXT(output_txt_name,output_txt):
     output_txt = addGreaterThans(output_txt)
     with open(output_txt_name, "w") as file:
@@ -172,11 +170,11 @@ def writeTXT(output_txt_name,output_txt):
             file.write(line+"\n")
     print "\nWrote " + output_txt_name + "\n"
 
-# writes fasta file with name output_fasta_name and paired output_seq_ids / output_seqs
+# takes a list of sequence ids output_seq_ids and a list of sequences output_seqs and writes a FASTA file with name output_fasta_name
 def writeFASTA(output_fasta_name,output_seq_ids,output_seqs):
     output_seq_ids = addGreaterThans(output_seq_ids)
     with open(output_fasta_name, "w") as file:
         for i in range(len(output_seqs)):
-            file.write(">"+output_seq_ids[i]+"\n")
+            file.write(output_seq_ids[i]+"\n")
             file.write(output_seqs[i]+"\n")
     print "\nWrote " + output_fasta_name + "\n"
