@@ -1,5 +1,5 @@
 # !/bin/bash
-# update ubuntu and all bio tools
+# update ubuntu
 sleep 3
-sudo apt-get -y update && sudo apt-get -y upgrade
-sudo pip install agalma --upgrade
+sudo apt-get -y update
+sudo apt-get -y upgrade
