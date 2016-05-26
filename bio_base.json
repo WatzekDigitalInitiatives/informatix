@@ -2,7 +2,7 @@
   "variables": {
     "aws_access_key": "",
     "aws_secret_key": "",
-    "build_number": "1.{{env `TRAVIS_BUILD_NUMBER`}}"
+    "build_number": "2.{{env `TRAVIS_BUILD_NUMBER`}}"
   },
   "builders": [{
     "type": "amazon-ebs",
