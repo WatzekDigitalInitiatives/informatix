@@ -24,7 +24,7 @@ for filename,data in read_txt.iteritems():
 	output_data = bioio.splitLinearSeqids(data)
 
 	# add venom codes based on filename
-	output_data = bioio.addVenomCode(output_data,filename)
+	output_data = bioio.addVenomCodes(output_data,filename)
 
 	# replace s??? codes with sample info code
 	output_data = bioio.replaceSCodes(output_data)
