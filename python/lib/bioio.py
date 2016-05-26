@@ -54,15 +54,6 @@ def readFASTA(input_files):
         input_data[file[:-6]] = file_data
     return input_data
 
-# takes multiple FASTA files and returns one single list with all seqids combined
-def combineFASTA(files):
-    output_data = []
-    for file in files:
-        input_txt_data = readTXT(file)
-        for line in input_txt_data:
-            output_data.append(line)
-    return output_data
-
 """
  MANIPULATE
 """

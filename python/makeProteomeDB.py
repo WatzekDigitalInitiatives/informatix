@@ -7,49 +7,43 @@ import sys
 import bioio
 import biomath
 
-#first cli argument should be the python file and second should be the database names followed by all the VenomCode files
-files = sys.argv[2:]
-output_file_names = []
+# strip file extensions and read files
+read_fasta = bioio.readFASTA(sys.argv[1])
+input_fasta_name = sys.argv[1][:-6]
+input_fasta_data = read_fasta[input_fasta_name]
+input_fasta_splitdata = bioio.splitFASTA(input_fasta_data)
+input_fasta_seq_ids = input_fasta_splitdata['output_seq_ids']
+input_fasta_seqs = input_fasta_splitdata['output_seqs']
+read_txt = bioio.readTXT(sys.argv[2:])
+output_combined_data = []
 
-for file in files:
-	# strip file extension and read file
-	input_txt_name = file[:-4]
-	input_txt_data = bioio.readTXT(file)
+# reformat and combine seqid lists
+for filename,data in read_txt.iteritems():
 
 	# split on greaterthans
-	output_data = bioio.splitLinearSeqids(input_txt_data)
+	output_data = bioio.splitLinearSeqids(data)
 
 	# add venom codes based on filename
-	output_data = bioio.addVenomCode(output_data,input_txt_name)
+	output_data = bioio.addVenomCode(output_data,filename)
 
 	# replace s??? codes with sample info code
 	output_data = bioio.replaceSCodes(output_data)
 
-	# define names of the resulting file
-	output_txt_name = input_txt_name+"_proteome_ready.txt"
-	output_file_names.append(output_txt_name)
-
-	# write the resulting file
+	# write the 'fixed' version of each file
+	output_txt_name = filename + "_proteome_ready.txt"
 	bioio.writeTXT(output_txt_name,output_data)
 
-output_data = bioio.combineFASTA(output_file_names)
-bioio.writeTXT("combined_proteome_db.txt",output_data)
+	# also append its data to a combined file
+	output_combined_data.append(output_data)
 
-# strip file extensions and read and manipulate files
-input_txt_data = bioio.trimGreaterThans(bioio.readTXT("combined_proteome_db.txt"))
-input_fasta_name = sys.argv[1][:-6]
-input_fasta_data = bioio.readFASTA(sys.argv[1])
-input_fasta_splitdata = bioio.splitFASTA(input_fasta_data)
-input_fasta_seq_ids = input_fasta_splitdata['output_seq_ids']
-input_fasta_seqs = input_fasta_splitdata['output_seqs']
+# write the combined proteome data file
+bioio.writeTXT("combined_proteome_db.txt",output_combined_data)
 
-# compare input files to find missing lines
-output_fasta_data = biomath.reduceNames(input_txt_data,input_fasta_seq_ids,input_fasta_seqs,1)
+# call reduceNames to check combined proteomes against database
+output_fasta_data = biomath.reduceNames(output_combined_data,input_fasta_seq_ids,input_fasta_seqs,1)
 output_seq_ids = output_fasta_data['output_seq_ids']
 output_seqs = output_fasta_data['output_seqs']
 
-# define names of the resulting files
+# write the resulting fasta file
 output_fasta_name = input_fasta_name+"_proteomes.fasta"
-
-# write the missing lines to a file
 bioio.writeFASTA(output_fasta_name,output_seq_ids,output_seqs)
