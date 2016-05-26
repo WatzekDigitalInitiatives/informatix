@@ -4,10 +4,10 @@ Created on Mon May 23 14:06:52 2016
 
 @author: rishijavia
 """
-
-python sys.path.append(os.path.dirname(sys.path[o]),'lib')
-python sys.path.append(os.path.dirname(sys.path[o]),'test')
-import sys, os, biomath, bioio, unittest
+import sys, os, unittest
+sys.path.append(os.path.join(os.path.dirname(sys.path[0]),'lib'))
+sys.path.append(os.path.join(os.path.dirname(sys.path[0]),'test'))
+import biomath, bioio
 from testdata import *
 
 
