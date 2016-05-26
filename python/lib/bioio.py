@@ -7,27 +7,51 @@
  READ
 """
 
-# takes CSV file and returns list of rows
-def readCSV(input_file):
+# takes CSV files and returns list of rows and filenames
+def readCSV(input_files):
     import csv
-    with open(input_file, 'r') as f:
-        reader = csv.reader(f, delimiter=',')
-        next(reader)
-        input_data = [r for r in reader]
+    import sys
+    input_data = {}
+    for file in input_files:
+        if '/' in file:
+            sys.exit("Input files must be in same directory as script.")
+        if file[-4:] != '.csv':
+            sys.exit("Input files must be in .csv format.")
+        with open(file, 'r') as f:
+            reader = csv.reader(f, delimiter=',')
+            next(reader)
+            file_data = [r for r in reader]
+        input_data[file[:-4]] = file_data
     return input_data
 
-# takes TXT file and returns list of lines, strips '>'
-def readTXT(input_file):
-    with open(input_file, 'r') as f:
-        input_data = f.read().splitlines()
-    input_data = trimGreaterThans(input_data)
+# takes TXT files and returns list of lines and filenames, strips '>'
+def readTXT(input_files):
+    import sys
+    input_data = {}
+    for file in input_files:
+        if '/' in file:
+            sys.exit("Input files must be in same directory as script.")
+        if file[-4:] != '.txt':
+            sys.exit("Input files must be in .txt format.")
+        with open(file, 'r') as f:
+            file_data = f.read().splitlines()
+            file_data = trimGreaterThans(file_data)
+        input_data[file[:-4]] = file_data
     return input_data
 
-# takes FASTA file and returns list of lines, strips '>'
-def readFASTA(input_file):
-    with open(input_file, 'r') as f:
-        input_data = f.read().splitlines()
-    input_data = trimGreaterThans(input_data)
+# takes FASTA files and returns list of lines and filenames, strips '>'
+def readFASTA(input_files):
+    import sys
+    input_data = {}
+    for file in input_files:
+        if '/' in file:
+            sys.exit("Input files must be in same directory as script.")
+        if file[-6:] != '.fasta':
+            sys.exit("Input files must be in .fasta format.")
+        with open(file, 'r') as f:
+            file_data = f.read().splitlines()
+            file_data = trimGreaterThans(file_data)
+        input_data[file[:-6]] = file_data
     return input_data
 
 # takes multiple FASTA files and returns one single list with all seqids combined

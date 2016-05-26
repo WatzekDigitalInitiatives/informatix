@@ -1,0 +1,2 @@
+>sp|K2C1_HUMAN|_PHO
+>sp|REF_HEVBR|_SCO

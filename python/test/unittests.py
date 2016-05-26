@@ -5,6 +5,8 @@ Created on Mon May 23 14:06:52 2016
 @author: rishijavia
 """
 
+import sys
+sys.path.append('../lib/')
 import biomath
 import bioio
 import unittest
@@ -25,6 +27,27 @@ class TestBioMath(unittest.TestCase):
         self.assertEqual(biomath.findMissingSeqs(example_names_list,example_data_list),expected_missing_seqs)
 
 class TestBioIO(unittest.TestCase):
+
+    def test_readCSV(self):
+        self.assertDictEqual(bioio.readCSV(example_csv_files),example_csv_input)
+        with self.assertRaises(SystemExit):
+            bioio.readCSV(['sample1.csv','path/sample2.csv'])
+        with self.assertRaises(SystemExit):
+            bioio.readCSV(['sample1.csv','sample2.txt'])
+
+    def test_readTXT(self):
+        self.assertDictEqual(bioio.readTXT(example_txt_files),example_txt_input)
+        with self.assertRaises(SystemExit):
+            bioio.readTXT(['sample1.txt','path/sample2.txt'])
+        with self.assertRaises(SystemExit):
+            bioio.readTXT(['sample1.csv','sample2.txt'])
+
+    def test_readFASTA(self):
+        self.assertDictEqual(bioio.readFASTA(example_fasta_files),example_fasta_input)
+        with self.assertRaises(SystemExit):
+            bioio.readFASTA(['sample1.fasta','path/sample2.fasta'])
+        with self.assertRaises(SystemExit):
+            bioio.readFASTA(['sample1.fasta','sample2.txt'])
 
     def test_splitLinearSeqids(self):
         self.assertEqual(bioio.splitLinearSeqids(example_linear_seqids),expected_split_linear_seqids)
