@@ -47,6 +47,8 @@ class TestBioIO(unittest.TestCase):
         with self.assertRaises(SystemExit):
             bioio.readFASTA(['sample1.fasta','sample2.txt'])
 
+    def test_splitCSV(self):
+
     def test_splitLinearSeqids(self):
         self.assertEqual(bioio.splitLinearSeqids(example_linear_seqids),expected_split_linear_seqids)
 

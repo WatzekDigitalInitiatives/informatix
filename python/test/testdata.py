@@ -11,9 +11,6 @@ Created on Tues May 24 09:24:52 2016
 # findLongestSeq()
 #
 
-global example_rows
-global expected_longest_rows
-
 example_rows = [
 ['sample1','FJKDHGSKJGHLSKULSDUHRGLSIHUG'],
 ['sample1','KLSURHGLFIAUHRFLAIWUEHFLAIWUEHFALWEI'],
@@ -38,9 +35,6 @@ expected_longest_rows = [
 #
 # splitLinearSeqids()
 #
-
-global example_linear_seqids
-global expected_split_linear_seqids
 
 example_linear_seqids = [
 'sample1',
@@ -70,11 +64,6 @@ expected_split_linear_seqids = [
 #
 # reduceNames()
 #
-
-global example_search_seqids
-global example_db_seqids
-global example_db_seqs
-global expected_reduced_data
 
 example_search_seqids = [
 'sample1',
@@ -128,10 +117,6 @@ expected_reduced_data = {
 #
 # findMissingSeqs()
 #
-
-global example_names_list
-global example_data_list
-global expected_missing_seqs
 
 example_names_list = [
 'sample1',
