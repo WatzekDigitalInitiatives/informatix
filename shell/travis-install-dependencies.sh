@@ -1,6 +1,8 @@
 # !/bin/bash
 if [ "${TRAVIS_PULL_REQUEST}" = "false" ]
 	then
+    # update package manager
+    sudo apt-get update
     # install unzip and wget if we don't have them
     sudo apt-get install -y unzip wget
     # install packer on travis machine to build ami

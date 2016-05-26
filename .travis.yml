@@ -9,7 +9,5 @@ env:
   - secure: avDwhiuxAlhK03QZilfLMgIgpPTu/jJ+d0hg2k2RrXc+wiNxIopkWiQdLVrEq5yeRScKXngJ+kNL7Ox3K/n5uV+0A3ycLiUVYk6qF+oLzfO5929WpKtn5uPKPjuEM/ffH/VSFowuQBVZzX6W65W309Bol4aYMRE5Ei7ZXOg2p2OBexgEnYhMPxr+qX+83DMTXQalf8IJasV/egGa1mi88xbv50Y5R1SNAR5dCoPvosvEawHhpalkVjzBP34JPiff675eJ3nfbHIrMVKyKFM8cvcdS45Q5OY8PLXAwClHKj3ZwuZPp+4V2287anjR3sf/N6SRdj0ZwVpg2ZegOBha4M9vgwbuK8/idfuAjt2ayVH70/nBulJxKV+UuzFO03DzGRfFRZ0LmGntwYthZzkFbr3zgnynhpa/qyRViKSY/Bzp8y4wNBippkVTMSEYyrd9nCd2p/4CyVgZ6AzC/Al8QlZSU0GRTN2v0hzxPWsUWyHJTD29wmSGbosZqsBK78JUjAJqItIeZtZZGrHQhMS28FA7rg6Q+kFuI7V+wCt8JwP2BAnQV6nSAbq7Edmt472fJZ/wq79CfpPLtDZcXKIsF9ibUZ+hyMfA4VssMiTg85UGWkbklX9inJs3Lb7OTHQWx1teC+Sb3ImX9+n/VY3zJKcmfuDpxQg1KpkGHlxub2Q=
 notifications:
   slack: watzekdi:zEtuD1WHpN9DYmzZFzTsfudX
-before_install:
-  - sudo apt-get update
 install: ./shell/travis-install-dependencies.sh
 script: ./shell/travis-main-build.sh
