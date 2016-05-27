@@ -65,3 +65,12 @@ def findMissingSeqs(names_list, data_list):
         else:
             output.append(val)
     return output
+
+def findMatchingSeqs(names_list, data_list):
+    output = []
+    for val in names_list:
+        if val in data_list:
+            output.append(val)
+        else:
+            continue
+    return output
