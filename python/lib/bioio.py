@@ -19,7 +19,6 @@ def readCSV(input_files):
             sys.exit("Input files must be in .csv format.")
         with open(file, 'r') as f:
             reader = csv.reader(f, delimiter=',')
-            next(reader)
             file_data = [r for r in reader]
         input_data[file[:-4]] = file_data
     return input_data
@@ -93,6 +92,9 @@ def splitLinearSeqids(rows):
 
 # takes list of lines and appends 3-letter venom code based on filename
 def addVenomCodes(rows,code):
+    import sys
+    if (len(code) != 3):
+        sys.exit("The length of the venom code should be 3 characters")
     output_data = []
     for row in rows:
         output_data.append(row + "_" + code)
