@@ -80,7 +80,7 @@ def splitFASTA(input_data):
 def matchFASTA(seq_ids,seqs):
     output = {}
     for i in range(len(seq_ids)):
-        output[seq_id[i]] = seqs[i]
+        output[seq_ids[i]] = seqs[i]
     return output
 
 # takes list of lines and makes sure all sequence ids are on a new line, using remaining '>'

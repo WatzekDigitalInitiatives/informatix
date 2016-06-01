@@ -6,6 +6,7 @@ Created on Mon May 23 14:06:52 2016
 """
 
 import bioio
+import re
 
 def findLongestSeq(rows):
     data = rows[0]
@@ -75,7 +76,24 @@ def findMatchingSeqs(names_list, data_list):
             continue
     return output
 
-def reduceIsoforms(seq_ids,seqs):
-    output = []
-    seqs_dict = {}
-    for seq_id in seq_ids:
+def reduceIsoforms(fasta_data):
+    output = {}
+    for seq_id, seq in fasta_data.iteritems():
+        if re.match('\w*i1\W\w\W\w*', seq_id):
+            output[seq_id] = seq
+
+    for seq_id, seq in fasta_data.iteritems():
+        string = seq_id.split('_i')
+        flag = 0
+        for sid, s in output.iteritems():
+            if string[0] in sid:
+                flag = 1
+                break
+        if flag == 1:
+            continue
+        else:
+            output[seq_id] = seq
+
+    output_seq_ids = output.keys()
+    output_seqs = output.values()
+    return {'output_seq_ids':output_seq_ids,'output_seqs':output_seqs}
