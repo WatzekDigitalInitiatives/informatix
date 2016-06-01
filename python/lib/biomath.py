@@ -74,3 +74,8 @@ def findMatchingSeqs(names_list, data_list):
         else:
             continue
     return output
+
+def reduceIsoforms(seq_ids,seqs):
+    output = []
+    seqs_dict = {}
+    for seq_id in seq_ids:

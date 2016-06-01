@@ -11,7 +11,7 @@ import bioio
 import biomath
 
 # strip file extension and read file
-read_csv = bioio.readCSV(sys.argv[-1])
+read_csv = bioio.readCSV([sys.argv[-1]])
 input_csv_name = sys.argv[-1][:-4]
 input_csv_data = read_csv[input_csv_name]
 

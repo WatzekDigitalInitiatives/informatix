@@ -76,6 +76,13 @@ def splitFASTA(input_data):
         output_seqs.append(input_data[i])
     return {'output_seq_ids':output_seq_ids,'output_seqs':output_seqs}
 
+# takes dictionary with list of sequence ids and list of sequences, returns dict matching the two together
+def matchFASTA(seq_ids,seqs):
+    output = {}
+    for i in range(len(seq_ids)):
+        output[seq_id[i]] = seqs[i]
+    return output
+
 # takes list of lines and makes sure all sequence ids are on a new line, using remaining '>'
 def splitLinearSeqids(rows):
     output_data = []
