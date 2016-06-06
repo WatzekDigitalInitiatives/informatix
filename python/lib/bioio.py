@@ -17,7 +17,7 @@ def readCSV(input_files):
             sys.exit("Input files must be in same directory as script.")
         if file[-4:] != '.csv':
             sys.exit("Input files must be in .csv format.")
-        with open(file, 'r') as f:
+        with open(file, 'rU') as f:
             reader = csv.reader(f, delimiter=',')
             file_data = [r for r in reader]
         input_data[file[:-4]] = file_data
@@ -173,6 +173,15 @@ def replaceSCodes(rows):
             output_data.append(row)
     return output_data
 
+def breakClusters(input_data):
+    output_data = []
+    for data in input_data:
+        string = "\n"
+        split = data[1].split(',')
+        for s in split:
+            string += s + "\n"
+        output_data.append(data[0] + ":" + string)
+    return output_data
 
 """
 WRITE
