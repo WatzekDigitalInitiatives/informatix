@@ -178,6 +178,8 @@ def breakClusters(input_data):
     for data in input_data:
         string = "\n"
         split = data[1].split(',')
+        if not data[0][11:] in split:
+            string += data[0][11:] + "\n"
         for s in split:
             string += s + "\n"
         output_data.append(data[0] + ":" + string)
