@@ -111,7 +111,10 @@ def addVenomCodes(rows,code):
 def trimVenomCodes(input_data):
     output_data = []
     for data in input_data:
-        output_data.append(data[:-4])
+        if data[-4] == "_":
+            output_data.append(data[:-4])
+        else:
+            output_data.append(data)
     return output_data
 
 # adds a > character to the beginning of every line if one is not present
