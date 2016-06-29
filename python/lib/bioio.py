@@ -97,11 +97,9 @@ def splitLinearSeqids(rows):
                 string = string + c
     return output_data
 
-# takes list of lines and appends 3-letter venom code based on filename
+# takes list of lines and appends venom code based on filename
 def addVenomCodes(rows,code):
     import sys
-    if (len(code) != 3):
-        sys.exit("The length of the venom code should be 3 characters")
     output_data = []
     for row in rows:
         output_data.append(row + "_" + code)
