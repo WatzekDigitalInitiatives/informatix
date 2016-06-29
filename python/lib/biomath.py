@@ -65,6 +65,7 @@ def findMissingSeqs(names_list, data_list):
             continue
         else:
             output.append(val)
+    print("Found " + str(len(output)) + " missing sequences.")
     return output
 
 def findMatchingSeqs(names_list, data_list):
@@ -74,7 +75,20 @@ def findMatchingSeqs(names_list, data_list):
             output.append(val)
         else:
             continue
+    print("Found " + str(len(output)) + " matching sequences.")
     return output
+
+def trimShortSeqs(fasta_data, length):
+    output = {}
+    for seq_id, seq in fasta_data.iteritems():
+        if len(seq) >= length:
+            output[seq_id] = seq
+        else:
+            continue
+    output_seq_ids = output.keys()
+    output_seqs = output.values()
+    print("Got back " + str(len(output)) + " sequences.")
+    return {'output_seq_ids':output_seq_ids, 'output_seqs':output_seqs}
 
 def reduceIsoforms(fasta_data):
     output = {}
