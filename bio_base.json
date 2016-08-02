@@ -21,6 +21,7 @@
      "scripts": [
        "shell/update.sh",
        "shell/install_bib.sh",
+       "shell/install_cap3.sh",
        "shell/install_aws_cli.sh",
        "shell/install_python_scripts.sh"
      ]

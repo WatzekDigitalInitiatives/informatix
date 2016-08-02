@@ -21,7 +21,7 @@ input_fasta_splitdata = bioio.splitFASTA(input_fasta_data)
 input_fasta_seq_ids = input_fasta_splitdata['output_seq_ids']
 input_fasta_seqs = input_fasta_splitdata['output_seqs']
 
-# match seq_ids and reduce isoforms
+# remove seqs with less than desired length
 matched_fasta = bioio.matchFASTA(input_fasta_seq_ids,input_fasta_seqs)
 output_fasta_data = biomath.trimShortSeqs(matched_fasta,length)
 output_seq_ids = output_fasta_data['output_seq_ids']
