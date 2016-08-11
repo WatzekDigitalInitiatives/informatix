@@ -22,8 +22,7 @@ input_csv_name = sys.argv[-1][:-4]
 input_csv_data = read_csv[input_csv_name]
 
 # find longest sequences and get the name list of seq ids
-longest_csv_data = biomath.findLongestSeq(input_csv_data)
-name_list = bioio.splitCSV(longest_csv_data)['output_seq_ids']
+name_list = biomath.removeDuplicateSequences(input_csv_data)
 
 # check name list against the database
 output_fasta_data = biomath.reduceNames(name_list,input_fasta_seq_ids,input_fasta_seqs)

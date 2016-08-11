@@ -24,6 +24,16 @@ def findLongestSeq(rows):
     output_data.append(data)
     return output_data
 
+def removeDuplicateSequences(rows):
+    output_data = []
+    for i in range(1,len(rows)):
+        col2 = rows[i][1]
+        if (col2 in output_data):
+            continue
+        else:
+            output_data.append(col2)
+    return output_data
+
 def reduceNames(search_seq_ids, db_seq_ids, db_seqs, venom_switch = None):
     import sys
     output_seq_ids = []
