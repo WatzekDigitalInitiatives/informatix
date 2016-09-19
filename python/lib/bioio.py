@@ -189,7 +189,7 @@ def breakClusters(input_data):
 def splitOnIDPrefix(input_data, prefix):
     output_data = []
     for i in range(len(input_data)):
-        if(input_data[i][:3] == prefix):
+        if(input_data[i][:len(prefix)] == prefix):
             output_data.append(input_data[i])
             output_data.append(input_data[i+1])
     splitData = splitFASTA(output_data)
