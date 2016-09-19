@@ -9,6 +9,6 @@ read_fasta = bioio.readFASTA([sys.argv[-1]])
 input_fasta_name = sys.argv[-1][:-6]
 input_fasta_data = read_fasta[input_fasta_name]
 
-prefixList = ["ARC", "DRY", "LRE", "PER"]
+prefixList = ["ARC", "DRY", "LRE", "PER", "LRU", "PHO", "SIC", "LSP", "PLE", "SCY", "LAZ"]
 for prefix in prefixList:
     bioio.splitOnIDPrefix(input_fasta_data, prefix)
