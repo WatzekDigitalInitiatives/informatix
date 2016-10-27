@@ -76,11 +76,19 @@ def splitFASTA(input_data):
         output_seqs.append(input_data[i])
     return {'output_seq_ids':output_seq_ids,'output_seqs':output_seqs}
 
-# takes dictionary with list of sequence ids and list of sequences, returns dict matching the two together
+# takes list of sequence ids and list of sequences, returns dict matching the two together
 def matchFASTA(seq_ids,seqs):
     output = {}
     for i in range(len(seq_ids)):
         output[seq_ids[i]] = seqs[i]
+    return output
+
+# takes list of sequence ids and list of sequences, returns list interspersing the two
+def knitFASTA(seq_ids,seqs):
+    output = []
+    for i in range(len(seq_ids)):
+        output.append(seq_ids[i])
+        output.append(seqs[i])
     return output
 
 # takes list of lines and makes sure all sequence ids are on a new line, using remaining '>'
@@ -186,9 +194,20 @@ def breakClusters(input_data):
         output_data.append(data[0] + ":" + string)
     return output_data
 
+
+def trimPepSeqIds(seq_ids):
+    output_data = []
+    for seq_id in seq_ids:
+        output_data.append(seq_id.split(':')[0])
+    return output_data
+
+"""
+WRITE
+"""
+# writes one separate output file for every venom tag supplied
 def splitOnIDPrefix(input_data, prefix):
     output_data = []
-    for i in range(len(input_data)):
+    for i in range(0, len(input_data), 2):
         if(input_data[i][:len(prefix)] == prefix):
             output_data.append(input_data[i])
             output_data.append(input_data[i+1])
@@ -197,10 +216,6 @@ def splitOnIDPrefix(input_data, prefix):
     output_seqs = splitData['output_seqs']
     output_fasta_name = prefix+".fasta"
     writeFASTA(output_fasta_name,output_seq_ids,output_seqs)
-
-"""
-WRITE
-"""
 
 # takes a list of rows output_csv and writes a CSV file with name output_csv_name
 def writeCSV(output_csv_name,output_csv):
