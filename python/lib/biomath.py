@@ -121,3 +121,14 @@ def reduceIsoforms(fasta_data):
     output_seq_ids = output.keys()
     output_seqs = output.values()
     return {'output_seq_ids':output_seq_ids,'output_seqs':output_seqs}
+
+def findMissingFromDB(db_dict, blast_dict):
+    db_dict_remove = []
+    for i in range(len(db_dict)):
+        if db_dict.keys()[i] in blast_dict:
+            db_dict_remove.append(db_dict.keys()[i])
+        else:
+            continue
+    for key in db_dict_remove:
+        del db_dict[key]
+    return db_dict
