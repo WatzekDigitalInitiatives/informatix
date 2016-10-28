@@ -53,6 +53,24 @@ def readFASTA(input_files):
         input_data[file[:-6]] = file_data
     return input_data
 
+# takes FASTA files and returns dict matching seq/seqid, strips '>'
+def readFASTAdict(input_files):
+    import sys
+    input_data = {}
+    input_dict = {}
+    for file in input_files:
+        if '/' in file:
+            sys.exit("Input files must be in same directory as script.")
+        if file[-6:] != '.fasta':
+            sys.exit("Input files must be in .fasta format.")
+        with open(file, 'r') as f:
+            file_data = f.read().splitlines()
+            file_data = trimGreaterThans(file_data)
+        for i in range(0, len(file_data), 2):
+            input_dict[file_data[i]] = file_data[i+1]
+        input_data[file[:-6]] = input_dict
+    return input_data
+
 """
  MANIPULATE
 """
@@ -133,6 +151,14 @@ def addGreaterThans(rows):
             output_data.append(row)
     return output_data
 
+# adds a > character to the beginning of every dict key if one is not present
+def addGreaterThansDict(input_dict):
+    output_dict = {}
+    for key, value in input_dict.iteritems():
+        if key[0] != ">":
+            output_dict[">" + key] = value
+    return output_dict
+
 # trims a > character at the beginning of every line if one is present
 def trimGreaterThans(rows):
     output_data = []
@@ -190,8 +216,7 @@ def breakClusters(input_data):
         if not data[0][11:] in split:
             string += data[0][11:] + "\n"
         for s in split:
-            string += s + "\n"
-        output_data.append(data[0] + ":" + string)
+            output_data.append(data[0] + ":" + string)
     return output_data
 
 
@@ -240,4 +265,13 @@ def writeFASTA(output_fasta_name,output_seq_ids,output_seqs):
         for i in range(len(output_seqs)):
             file.write(output_seq_ids[i]+"\n")
             file.write(output_seqs[i]+"\n")
+    print "\nWrote " + output_fasta_name + "\n"
+
+# takes a list of sequence ids output_seq_ids (adds '>') and a list of sequences output_seqs and writes a FASTA file with name output_fasta_name
+def writeFASTAdict(output_fasta_name,output_fasta_dict):
+    output_fasta_dict = addGreaterThansDict(output_fasta_dict)
+    with open(output_fasta_name, "w") as file:
+        for key, value in output_fasta_dict.iteritems():
+            file.write(key+"\n")
+            file.write(value+"\n")
     print "\nWrote " + output_fasta_name + "\n"
