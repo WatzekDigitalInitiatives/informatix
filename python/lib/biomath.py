@@ -135,3 +135,17 @@ def findMissingFromDB(db_dict, blast_dict):
         del db_dict[key]
 
     return db_dict
+
+def findFromDB(db_dict, file_dict):
+    db_dict_remove = []
+    db_keys = db_dict.keys()
+    file_keys = file_dict.keys()
+
+    for key in db_keys:
+        if key not in file_keys:
+            db_dict_remove.append(key)
+
+    for key in db_dict_remove:
+        del db_dict[key]
+
+    return db_dict
