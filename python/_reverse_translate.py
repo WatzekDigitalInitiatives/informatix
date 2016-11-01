@@ -4,6 +4,7 @@ sys.path.append(os.path.join(sys.path[0],'lib'))
 sys.path.append(os.path.join(sys.path[0],'test'))
 import bioio
 import biomath
+import time
 
 # read input files and names
 db_dict = bioio.readFASTAdict([sys.argv[-1]])
@@ -12,7 +13,9 @@ file_dict = bioio.readFASTAdict([sys.argv[-2]])
 input_file_name = sys.argv[-2][:-6]
 
 # find seqids and seqs
+start2 = time.clock()
 output_data = biomath.findFromDB(db_dict[input_db_name], file_dict[input_file_name])
+print time.clock() - start2
 
 # write results
 output_name = input_file_name + "_from_" + input_db_name + ".fasta"
